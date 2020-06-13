@@ -1,0 +1,16 @@
+#!/bin/sh
+#!/bin/bash
+echo "Switching to PHP$1..."
+case $1 in
+    "7.4")
+        sudo a2dismod php7.2
+        sudo a2enmod php7.4
+        sudo service apache2 restart
+        sudo ln -sfn /usr/bin/php7.4 /etc/alternatives/php;;
+    "7.2")
+        sudo a2dismod php7.4
+        sudo a2enmod php7.2
+        sudo service apache2 restart
+        sudo ln -sfn /usr/bin/php7.2 /etc/alternatives/php;;
+esac
+echo "Current version: $( php -v | head -n 1 | cut -c-7 )"
